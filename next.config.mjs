@@ -1,11 +1,11 @@
 /**
  * Static export config for GitHub Pages.
  *
- * This site is deployed as a PROJECT page (https://ezhilnn.github.io/actuate/),
+ * This site is deployed as a PROJECT page (https://ezhilnn.github.io/actuate-site/),
  * not a user/org page — so every internal asset needs the /actuate prefix.
  * If you ever rename the repo, update REPO_NAME below to match.
  */
-const REPO_NAME = "actuate";
+const REPO_NAME = "actuate-site";
 
 // GitHub Actions sets CI=true automatically. Locally (npm run dev) we skip
 // the basePath so http://localhost:3000 keeps working without a prefix.
