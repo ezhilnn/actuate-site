@@ -38,9 +38,9 @@ export default function About() {
                 <span className="badge">
                   <PinIcon /> {site.author.location}
                 </span>
-                <span className="badge">
+                {/* <span className="badge">
                   <CapIcon /> {site.author.education}
-                </span>
+                </span> */}
                 <span className="badge">
                   <PackageIcon /> maintainer of {site.package.name}
                 </span>
