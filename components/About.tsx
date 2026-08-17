@@ -29,9 +29,9 @@ export default function About() {
 
             <div style={{ flex: 1, minWidth: 0 }}>
               <h3 style={{ fontSize: 22 }}>{site.author.name}</h3>
-              <p className="mono" style={{ color: "var(--signal)", fontSize: 13.5, marginTop: 6 }}>
+              {/* <p className="mono" style={{ color: "var(--signal)", fontSize: 13.5, marginTop: 6 }}>
                 {site.author.role}
-              </p>
+              </p> */}
               <p style={{ marginTop: 14, fontSize: 14.5, maxWidth: 560 }}>{site.author.bio}</p>
 
               <div className="badge-row" style={{ marginTop: 18 }}>

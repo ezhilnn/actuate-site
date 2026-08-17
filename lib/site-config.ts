@@ -23,7 +23,7 @@ export const site = {
   },
     author: {
     name: "Ezhilan Nagarajan",
-    role: "Software Engineer I @ Rocket India",
+    // role: "Software Engineer I @ Rocket India",
     location: "Chennai, India",
     bio: "Backend engineer building distributed systems and AI-powered applications. Interested in LLM integration, prompt engineering, workflow orchestration, and production AI systems.",
     avatarInitials: "EN",
