@@ -78,7 +78,7 @@ export default function LoopDiagram() {
         ))}
       </svg>
 
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         @keyframes loopPulse {
           0%, 92%, 100% { filter: none; }
           4% { filter: drop-shadow(0 0 10px var(--signal)); }
@@ -90,7 +90,7 @@ export default function LoopDiagram() {
         }
         .loop-node { animation: loopPulse 8s linear infinite; animation-delay: inherit; }
         .loop-node-ring { animation: loopRing 8s linear infinite; }
-      `}</style>
+      ` }} />
     </div>
   );
 }

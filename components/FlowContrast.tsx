@@ -62,7 +62,7 @@ export default function FlowContrast() {
         </div>
       </div>
 
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         .flow-chip {
           font-size: 12.5px;
           padding: 7px 13px;
@@ -85,7 +85,7 @@ export default function FlowContrast() {
         @media (min-width: 900px) {
           #flow-grid { grid-template-columns: 1fr 1fr; }
         }
-      `}</style>
+      ` }} />
     </section>
   );
 }

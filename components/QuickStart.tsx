@@ -66,7 +66,7 @@ export default function QuickStart() {
         </Reveal>
       </div>
 
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         .qs-row { display: grid; grid-template-columns: 44px 1fr; gap: 4px 20px; position: relative; }
         .qs-num {
           font-size: 13px; color: var(--signal); background: var(--panel);
@@ -78,7 +78,7 @@ export default function QuickStart() {
         @media (min-width: 640px) {
           .qs-row { grid-template-columns: 40px 1fr; }
         }
-      `}</style>
+      ` }} />
     </section>
   );
 }

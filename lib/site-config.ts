@@ -21,19 +21,18 @@ export const site = {
     githubOrgRepo: "actuate-ai/actuate",
     tags: ["agents", "control-loop", "evaluation", "graph", "llm", "reward"],
   },
-    author: {
+  author: {
     name: "Ezhilan Nagarajan",
-    // role: "Software Engineer I @ Rocket India",
     location: "Chennai, India",
-    bio: "Backend engineer building distributed systems and AI-powered applications. Interested in LLM integration, prompt engineering, workflow orchestration, and production AI systems.",
+    education: "Chennai Institute of Technology",
+    bio: "Software engineer building an automated loan-review pipeline for correspondent business loans at Rocket India, and maintainer of actuate-ai in his own time. Focused on full-stack, cloud-native, event-driven, and AI-powered systems.",
     avatarInitials: "EN",
     github: "https://github.com/ezhilnn",
-    linkedin: "https://linkedin.com/in/ezhilan-nagarajan",
-    portfolio: "https://ezhilan-portfolio.netlify.app",
+    linkedin: "https://www.linkedin.com/in/ezhilan-nagarajan",
+    portfolio: "https://ezhilan-portfolio.netlify.app/",
     email: "ezhilan.dev.4@gmail.com",
-    twitter: "https://x.com/ezhilnn",
+    resume: "https://ezhilan-portfolio.netlify.app/Resume-June-2026.pdf",
   },
-
 } as const;
 
 export type Site = typeof site;

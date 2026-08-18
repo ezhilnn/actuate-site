@@ -152,6 +152,11 @@ button {
   position: relative;
 }
 
+@media (max-width: 640px) {
+  .section { padding: 64px 0; }
+  .container { padding: 0 18px; }
+}
+
 .section-head {
   max-width: 640px;
   margin-bottom: 56px;
@@ -338,10 +343,45 @@ button {
 
 /* ---------- tables ---------- */
 
+.table-panel {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  min-width: 0; /* let it shrink inside a grid/flex track instead of forcing one wide */
+}
+
+/* Every custom grid on the page: without this, a grid item containing a wide
+   child (a 520px-min table, a long code line) forces its whole track wider
+   than the viewport, and the ENTIRE PAGE scrolls horizontally on mobile —
+   not just that one panel. min-width: 0 lets each item shrink to its track
+   and defer to its own internal overflow-x (e.g. .table-panel, pre) instead. */
+#footer-grid > *,
+#flow-grid > *,
+#lc-grid > *,
+.cs-grid > *,
+#rc-grid > *,
+#sf-grid > *,
+#mt-grid > *,
+#hero-grid-inner > *,
+.qs-row > * {
+  min-width: 0;
+}
+
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
 .data-table {
   width: 100%;
+  min-width: 520px; /* scrolls horizontally on phones instead of crushing columns */
   border-collapse: collapse;
   font-size: 14.5px;
+}
+
+@media (max-width: 600px) {
+  .data-table { font-size: 13px; }
+  .data-table th, .data-table td { padding: 11px 12px; }
 }
 
 .data-table th {

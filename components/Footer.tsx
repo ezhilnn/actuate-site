@@ -7,10 +7,7 @@ export default function Footer() {
         <div id="footer-grid" style={{ display: "grid", gap: 40 }}>
           <div style={{ maxWidth: 280 }}>
             <div className="mono" style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 15, fontWeight: 600 }}>
-              <svg width="18" height="18" viewBox="0 0 40 40" fill="none">
-                <circle cx="20" cy="20" r="17" stroke="var(--signal)" strokeWidth="2.4" strokeDasharray="4 6" />
-                <circle cx="20" cy="20" r="6" fill="var(--signal)" />
-              </svg>
+              <img src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/logo.png`} alt="Actuate" width={20} height={20} style={{ display: "block", borderRadius: 5 }} />
               actuate
             </div>
             <p style={{ marginTop: 12, fontSize: 13.5 }}>{site.package.description}</p>
@@ -46,7 +43,9 @@ export default function Footer() {
           <FooterCol
             title="Maintainer"
             links={[
-              { label: site.author.name, href: site.author.github },
+              { label: "Portfolio", href: site.author.portfolio },
+              { label: "GitHub", href: site.author.github },
+              { label: "LinkedIn", href: site.author.linkedin },
               { label: "Contributors", href: `${site.package.githubUrl}/graphs/contributors` },
             ]}
           />
@@ -63,7 +62,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         #footer-grid { grid-template-columns: 1fr; }
         .footer-bottom {
           margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--border);
@@ -73,7 +72,7 @@ export default function Footer() {
           #footer-grid { grid-template-columns: 1.3fr 1fr 1fr 1fr; }
           .footer-bottom { flex-direction: row; justify-content: space-between; }
         }
-      `}</style>
+      ` }} />
     </footer>
   );
 }
@@ -91,10 +90,10 @@ function FooterCol({ title, links }: { title: string; links: { label: string; hr
           </a>
         ))}
       </div>
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         .footer-link { color: var(--text-dim); transition: color .15s ease; width: fit-content; }
         .footer-link:hover { color: var(--signal); }
-      `}</style>
+      ` }} />
     </div>
   );
 }

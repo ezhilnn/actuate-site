@@ -91,11 +91,11 @@ export default function LibraryConsole() {
         </Reveal>
       </div>
 
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         @media (min-width: 860px) {
           #lc-grid { grid-template-columns: 1fr 1fr; }
         }
-      `}</style>
+      ` }} />
     </section>
   );
 }

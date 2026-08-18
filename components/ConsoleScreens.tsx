@@ -40,13 +40,13 @@ export default function ConsoleScreens() {
         </div>
       </div>
 
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         .cs-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
         .cs-card { padding: 20px; transition: border-color .2s ease, transform .2s ease, box-shadow .2s ease; }
         .cs-card:hover { border-color: var(--signal); transform: translateY(-3px); box-shadow: 0 12px 30px -14px var(--signal-line); }
         @media (min-width: 640px) { .cs-grid { grid-template-columns: 1fr 1fr; } }
         @media (min-width: 980px) { .cs-grid { grid-template-columns: 1fr 1fr 1fr; } }
-      `}</style>
+      ` }} />
     </section>
   );
 }

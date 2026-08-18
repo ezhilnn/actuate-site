@@ -29,7 +29,7 @@ export default function ModelsAndTools() {
               <h2 style={{ marginTop: 14, fontSize: 24 }}>Bring any provider.</h2>
             </Reveal>
             <Reveal delay={0.08}>
-              <div className="panel" style={{ overflow: "hidden", marginTop: 24 }}>
+              <div className="panel table-panel" style={{ marginTop: 24 }}>
                 <table className="data-table">
                   <thead>
                     <tr>
@@ -56,7 +56,7 @@ export default function ModelsAndTools() {
               <h2 style={{ marginTop: 14, fontSize: 24 }}>What a graph specialist can reach for.</h2>
             </Reveal>
             <Reveal delay={0.08}>
-              <div className="panel" style={{ overflow: "hidden", marginTop: 24 }}>
+              <div className="panel table-panel" style={{ marginTop: 24 }}>
                 <table className="data-table">
                   <thead>
                     <tr>
@@ -79,11 +79,11 @@ export default function ModelsAndTools() {
         </div>
       </div>
 
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         @media (min-width: 980px) {
           #mt-grid { grid-template-columns: 1fr 1fr; }
         }
-      `}</style>
+      ` }} />
     </section>
   );
 }

@@ -72,7 +72,7 @@ export default function Architecture() {
             <div className="mono" style={{ fontSize: 12, color: "var(--text-faint)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 16 }}>
               Layer responsibilities
             </div>
-            <div className="panel" style={{ overflow: "hidden" }}>
+            <div className="panel table-panel">
               <table className="data-table">
                 <thead>
                   <tr>
@@ -96,7 +96,7 @@ export default function Architecture() {
         </Reveal>
       </div>
 
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         .hierarchy-row { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; }
         .hierarchy-node {
           border: 1px solid var(--border-bright);
@@ -108,7 +108,7 @@ export default function Architecture() {
         }
         .hierarchy-node:hover { border-color: var(--signal); transform: translateY(-2px); }
         .hierarchy-arrow { flex-shrink: 0; margin: 0 2px; }
-      `}</style>
+      ` }} />
     </section>
   );
 }
@@ -160,7 +160,7 @@ function BigPictureDiagram() {
         <span className="tag">live UI</span>
       </div>
 
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         .bp-box {
           border: 1px solid var(--border-bright);
           border-radius: var(--radius);
@@ -182,7 +182,7 @@ function BigPictureDiagram() {
           transition: transform .2s ease;
         }
         .bp-signal-box:hover { transform: translateY(-3px); }
-      `}</style>
+      ` }} />
     </div>
   );
 }

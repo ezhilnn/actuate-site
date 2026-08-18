@@ -1,102 +1,166 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import { site } from "@/lib/site-config";
-import CodeBlock from "./CodeBlock";
-import LoopDiagram from "./LoopDiagram";
-import { GithubIcon } from "./Nav";
+import CopyButton from "./CopyButton";
 
-export default function Hero() {
+const LINKS = [
+  { href: "#why", label: "Why" },
+  { href: "#architecture", label: "Architecture" },
+  { href: "#quickstart", label: "Quick start" },
+  { href: "#console", label: "Console" },
+  { href: "#compare", label: "Compare" },
+  { href: "#author", label: "Author" },
+];
+
+export default function Nav() {
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <section
-      id="top"
+    <header
       style={{
-        paddingTop: "calc(var(--nav-h) + 64px)",
-        paddingBottom: 80,
-        position: "relative",
-        overflow: "hidden",
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 50,
+        height: "var(--nav-h)",
+        display: "flex",
+        alignItems: "center",
+        background: scrolled ? "rgba(10,13,19,0.82)" : "transparent",
+        backdropFilter: scrolled ? "blur(12px)" : "none",
+        borderBottom: scrolled ? "1px solid var(--border)" : "1px solid transparent",
+        transition: "background 0.3s ease, border-color 0.3s ease",
       }}
     >
-      <div className="container" style={{ display: "grid", gridTemplateColumns: "1fr", gap: 56, alignItems: "center" }}>
-        <div id="hero-grid-inner" style={{ display: "grid", gridTemplateColumns: "1fr", gap: 56, alignItems: "center" }}>
-          <motion.div
-            initial={{ opacity: 0, y: 22 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+      <div className="container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <a href="#top" className="mono nav-logo" style={{ display: "flex", alignItems: "center", gap: 9, fontWeight: 600, fontSize: 15, letterSpacing: "0.02em", flexShrink: 0 }}>
+          <img src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/logo.png`} alt="Actuate" width={26} height={26} style={{ display: "block", borderRadius: 6 }} />
+          <span>actuate</span>
+          <span className="nav-logo-suffix" style={{ color: "var(--text-faint)", fontWeight: 400 }}>· ai</span>
+        </a>
+
+        <nav
+          className="mono"
+          style={{
+            display: "none",
+            gap: 28,
+            fontSize: 13.5,
+            color: "var(--text-dim)",
+          }}
+          id="desktop-nav"
+        >
+          {LINKS.map((l) => (
+            <a key={l.href} href={l.href} className="nav-link">
+              {l.label}
+            </a>
+          ))}
+        </nav>
+
+        <div style={{ display: "none", alignItems: "center", gap: 12 }} id="desktop-actions">
+          <div
+            className="mono"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
+              fontSize: 12.5,
+              color: "var(--signal)",
+              border: "1px solid var(--border-bright)",
+              borderRadius: "var(--radius)",
+              padding: "6px 6px 6px 12px",
+            }}
           >
-            <div className="eyebrow">
-              PYTHON PACKAGE · v{site.package.version} · {site.package.license}
-            </div>
-
-            <h1
-              style={{
-                fontSize: "clamp(36px, 5.2vw, 58px)",
-                lineHeight: 1.08,
-                marginTop: 20,
-                maxWidth: 620,
-              }}
-            >
-              {site.package.tagline}
-            </h1>
-
-            <p
-              className="mono"
-              style={{
-                marginTop: 18,
-                fontSize: 17,
-                color: "var(--signal)",
-                letterSpacing: "0.01em",
-              }}
-            >
-              {site.package.subTagline}
-            </p>
-
-            <p style={{ marginTop: 20, fontSize: 16.5, maxWidth: 520 }}>
-              {site.package.description} Not a workflow engine. Not a chatbot. A control system for AI output.
-            </p>
-
-            <div style={{ marginTop: 32, maxWidth: 420 }}>
-              <CodeBlock label="install" code={`$ ${site.package.installCommand}`} copyText={site.package.installCommand} />
-            </div>
-
-            <div style={{ display: "flex", gap: 12, marginTop: 24, flexWrap: "wrap" }}>
-              <a href={site.package.pypiUrl} target="_blank" rel="noreferrer" className="btn btn-primary">
-                View on PyPI ↗
-              </a>
-              <a href={site.package.githubUrl} target="_blank" rel="noreferrer" className="btn">
-                <GithubIcon /> Source on GitHub
-              </a>
-              <a href="#quickstart" className="btn">
-                Quick start →
-              </a>
-            </div>
-
-            <div className="badge-row" style={{ marginTop: 32 }}>
-              <span className="badge">python {site.package.pythonRequires}</span>
-              <span className="badge">license: {site.package.license}</span>
-              <span className="badge">postgres-backed</span>
-              <span className="badge">FastAPI + React console</span>
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.92 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.9, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <LoopDiagram />
-            <p className="mono" style={{ textAlign: "center", fontSize: 11.5, color: "var(--text-faint)", marginTop: 8, letterSpacing: "0.04em" }}>
-              setpoint → plant → sensor → error → controller → actuator ↺ plant
-            </p>
-          </motion.div>
+            $ {site.package.installCommand}
+            <CopyButton text={site.package.installCommand} />
+          </div>
+          <a href={site.package.githubUrl} target="_blank" rel="noreferrer" className="btn" style={{ padding: "8px 14px" }}>
+            <GithubIcon /> GitHub
+          </a>
         </div>
+
+        <button
+          aria-label="Toggle menu"
+          onClick={() => setOpen((v) => !v)}
+          className="mono"
+          style={{
+            background: "transparent",
+            border: "1px solid var(--border-bright)",
+            borderRadius: "var(--radius)",
+            color: "var(--text)",
+            width: 38,
+            height: 38,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+          id="mobile-toggle"
+        >
+          {open ? "×" : "≡"}
+        </button>
       </div>
 
-      <style>{`
-        @media (min-width: 980px) {
-          #hero-grid-inner { grid-template-columns: 1.05fr 0.95fr !important; }
+      {open && (
+        <div
+          className="mono"
+          style={{
+            position: "absolute",
+            top: "var(--nav-h)",
+            left: 0,
+            right: 0,
+            background: "rgba(10,13,19,0.97)",
+            borderBottom: "1px solid var(--border)",
+            padding: "16px 24px 24px",
+            display: "flex",
+            flexDirection: "column",
+            gap: 16,
+          }}
+        >
+          {LINKS.map((l) => (
+            <a key={l.href} href={l.href} onClick={() => setOpen(false)} style={{ fontSize: 15, color: "var(--text-dim)" }}>
+              {l.label}
+            </a>
+          ))}
+          <a href={site.package.githubUrl} target="_blank" rel="noreferrer" className="btn" style={{ justifyContent: "center" }}>
+            <GithubIcon /> View on GitHub
+          </a>
+        </div>
+      )}
+
+      <style dangerouslySetInnerHTML={{ __html: `
+        .nav-logo svg { flex-shrink: 0; display: block; }
+        @media (max-width: 380px) {
+          .nav-logo-suffix { display: none; }
         }
-      `}</style>
-    </section>
+        .nav-link { position: relative; color: var(--text-dim); transition: color .2s ease; }
+        .nav-link:hover { color: var(--signal); }
+        .nav-link::after {
+          content: ""; position: absolute; left: 0; right: 100%; bottom: -4px; height: 1px;
+          background: var(--signal); transition: right .25s ease;
+        }
+        .nav-link:hover::after { right: 0; }
+        @media (min-width: 860px) {
+          #desktop-nav { display: flex !important; }
+          #desktop-actions { display: flex !important; }
+          #mobile-toggle { display: none !important; }
+        }
+      ` }} />
+    </header>
+  );
+}
+
+export function GithubIcon() {
+  return (
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55v-2.14c-3.2.7-3.87-1.36-3.87-1.36-.53-1.33-1.29-1.69-1.29-1.69-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.47.11-3.06 0 0 .97-.31 3.18 1.18a11 11 0 015.79 0c2.2-1.49 3.18-1.18 3.18-1.18.63 1.59.23 2.77.11 3.06.74.8 1.18 1.83 1.18 3.09 0 4.42-2.69 5.4-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .3.21.66.79.55A10.51 10.51 0 0023.5 12c0-6.35-5.15-11.5-11.5-11.5z" />
+    </svg>
   );
 }

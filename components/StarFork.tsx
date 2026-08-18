@@ -27,11 +27,11 @@ export default function StarFork() {
         </div>
       </div>
 
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         @media (min-width: 780px) {
           #sf-grid { grid-template-columns: 1fr 1fr; }
         }
-      `}</style>
+      ` }} />
     </section>
   );
 }

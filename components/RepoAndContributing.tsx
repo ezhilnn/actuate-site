@@ -86,14 +86,14 @@ export default function RepoAndContributing() {
         </Reveal>
       </div>
 
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         #rc-grid { grid-template-columns: 1fr; }
         .rule-row { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); }
         .rule-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--signal); margin-top: 8px; flex-shrink: 0; box-shadow: 0 0 0 3px var(--signal-soft); }
         @media (min-width: 980px) {
           #rc-grid { grid-template-columns: 1.1fr 0.9fr; }
         }
-      `}</style>
+      ` }} />
     </section>
   );
 }
