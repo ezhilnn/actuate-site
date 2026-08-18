@@ -1,9 +1,9 @@
 /* ==========================================================================
    Actuate — design tokens
-   Direction: an industrial control console / oscilloscope reading, not a
-   chat-product landing page. Deep graphite-blue field, hairline panel
-   borders, a cyan "measured signal" accent and an amber "error/actuation"
-   accent, mono type standing in for telemetry readouts.
+   Direction: industrial control console / oscilloscope reading.
+
+   Deep graphite-blue field, hairline panel borders, cyan measured signal,
+   amber error/actuation accent, mono telemetry typography.
    ========================================================================== */
 
 :root {
@@ -11,44 +11,95 @@
   --bg-raised: #0e121a;
   --panel: #10141d;
   --panel-2: #141a25;
+
   --border: #232b3a;
   --border-bright: #37435a;
+
   --text: #e8ebf1;
   --text-dim: #98a2b8;
   --text-faint: #5c6784;
 
-  --signal: #5eead4;       /* measured signal / convergence */
+  --signal: #5eead4;
   --signal-soft: rgba(94, 234, 212, 0.12);
   --signal-line: rgba(94, 234, 212, 0.35);
 
-  --error: #f2a65a;        /* error signal / actuation */
+  --error: #f2a65a;
   --error-soft: rgba(242, 166, 90, 0.12);
   --error-line: rgba(242, 166, 90, 0.35);
 
-  --violet: #a897f2;       /* tertiary accent, sparingly */
+  --violet: #a897f2;
 
   --radius: 3px;
   --radius-lg: 6px;
-  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-  --sans: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  --mono:
+    "IBM Plex Mono",
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    monospace;
+
+  --sans:
+    "IBM Plex Sans",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
 
   --container: 1180px;
   --nav-h: 68px;
 }
 
-* {
+/* ==========================================================================
+   RESET
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
 html {
   scroll-behavior: smooth;
   background: var(--bg);
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  min-width: 0;
+  max-width: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+  isolation: isolate;
+
+  background-image:
+    linear-gradient(
+      var(--border) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      var(--border) 1px,
+      transparent 1px
+    );
+
+  background-size: 64px 64px;
+  background-position: center -1px;
+  background-attachment: fixed;
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
+
   *,
   *::before,
   *::after {
@@ -59,32 +110,31 @@ html {
   }
 }
 
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--sans);
-  font-size: 16px;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-  background-image:
-    linear-gradient(var(--border) 1px, transparent 1px),
-    linear-gradient(90deg, var(--border) 1px, transparent 1px);
-  background-size: 64px 64px;
-  background-position: center -1px;
-  background-attachment: fixed;
-  position: relative;
-}
+/* ==========================================================================
+   BACKGROUND
+   ========================================================================== */
 
 body::before {
-  /* vignette so the grid fades at the edges instead of tiling flatly */
   content: "";
+
   position: fixed;
   inset: 0;
+
   pointer-events: none;
-  z-index: 0;
-  background: radial-gradient(ellipse 80% 60% at 50% 0%, transparent 0%, var(--bg) 78%);
+
+  z-index: -1;
+
+  background:
+    radial-gradient(
+      ellipse 80% 60% at 50% 0%,
+      transparent 0%,
+      var(--bg) 78%
+    );
 }
+
+/* ==========================================================================
+   GLOBAL ELEMENTS
+   ========================================================================== */
 
 ::selection {
   background: var(--signal);
@@ -96,7 +146,10 @@ a {
   text-decoration: none;
 }
 
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
   font-family: var(--mono);
   font-weight: 600;
   letter-spacing: -0.01em;
@@ -109,7 +162,9 @@ p {
   color: var(--text-dim);
 }
 
-code, pre, kbd {
+code,
+pre,
+kbd {
   font-family: var(--mono);
 }
 
@@ -118,89 +173,451 @@ button {
   cursor: pointer;
 }
 
+/* ==========================================================================
+   CONTAINER
+   ========================================================================== */
+
 .container {
+  width: 100%;
   max-width: var(--container);
+  min-width: 0;
+
   margin: 0 auto;
-  padding: 0 24px;
+
+  padding-left: 24px;
+  padding-right: 24px;
+
   position: relative;
   z-index: 1;
 }
 
+/* ==========================================================================
+   NAVIGATION
+   ========================================================================== */
+
+.site-nav {
+  isolation: isolate;
+}
+
+.nav-container {
+  min-width: 0;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+
+  flex-shrink: 0;
+
+  gap: 9px;
+
+  color: var(--text);
+  text-decoration: none;
+
+  white-space: nowrap;
+}
+
+.nav-logo img {
+  display: block;
+
+  width: 26px;
+  height: 26px;
+
+  flex-shrink: 0;
+
+  border-radius: 6px;
+}
+
+#desktop-nav {
+  align-items: center;
+  justify-content: center;
+
+  flex: 1;
+  min-width: 0;
+
+  gap: 28px;
+
+  white-space: nowrap;
+}
+
+.nav-link {
+  position: relative;
+
+  display: inline-block;
+
+  flex-shrink: 0;
+
+  white-space: nowrap;
+
+  color: var(--text-dim);
+
+  transition:
+    color 0.2s ease;
+}
+
+.nav-link:hover {
+  color: var(--signal);
+}
+
+.nav-link::after {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  right: 100%;
+  bottom: -5px;
+
+  height: 1px;
+
+  background: var(--signal);
+
+  transition:
+    right 0.25s ease;
+}
+
+.nav-link:hover::after {
+  right: 0;
+}
+
+/* ==========================================================================
+   NAV INSTALL COMMAND
+   ========================================================================== */
+
+.nav-install {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  min-width: 0;
+  max-width: 260px;
+
+  padding:
+    6px
+    6px
+    6px
+    12px;
+
+  border:
+    1px solid
+    var(--border-bright);
+
+  border-radius: var(--radius);
+
+  color: var(--signal);
+
+  white-space: nowrap;
+
+  overflow: hidden;
+}
+
+.nav-install-command {
+  display: block;
+
+  min-width: 0;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+}
+
+.nav-install .copy-btn {
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   NAV GITHUB
+   ========================================================================== */
+
+.nav-github {
+  flex-shrink: 0;
+
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   MOBILE NAV
+   ========================================================================== */
+
+#mobile-toggle {
+  flex-shrink: 0;
+
+  width: 38px;
+  height: 38px;
+
+  padding: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: transparent;
+
+  border:
+    1px solid
+    var(--border-bright);
+
+  border-radius: var(--radius);
+
+  color: var(--text);
+
+  font-size: 20px;
+  line-height: 1;
+}
+
+.nav-mobile-menu {
+  position: absolute;
+
+  top: var(--nav-h);
+  left: 0;
+  right: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+
+  padding:
+    16px
+    24px
+    24px;
+
+  background:
+    rgba(10, 13, 19, 0.98);
+
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  border-bottom:
+    1px solid
+    var(--border);
+
+  box-shadow:
+    0 20px 40px -10px
+    rgba(0, 0, 0, 0.6);
+}
+
+.nav-mobile-menu > a:not(.btn) {
+  display: block;
+
+  padding: 9px 0;
+
+  color: var(--text-dim);
+
+  font-size: 15px;
+
+  transition:
+    color 0.2s ease;
+}
+
+.nav-mobile-menu > a:not(.btn):hover {
+  color: var(--signal);
+}
+
+.nav-mobile-menu .btn {
+  width: 100%;
+
+  justify-content: center;
+
+  margin-top: 8px;
+}
+
+/* ==========================================================================
+   NAV RESPONSIVE BREAKPOINTS
+   ========================================================================== */
+
+/*
+ * Full desktop navigation.
+ *
+ * We deliberately use 1100px instead of 860px because the desktop header
+ * contains:
+ *
+ *   logo
+ *   six navigation links
+ *   install command
+ *   GitHub button
+ *
+ * Below this width the mobile menu is cleaner and prevents collisions.
+ */
+
+@media (min-width: 1100px) {
+  #desktop-nav {
+    display: flex !important;
+  }
+
+  #desktop-actions {
+    display: flex !important;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+    min-width: 0;
+  }
+
+  #mobile-toggle {
+    display: none !important;
+  }
+}
+
+@media (max-width: 1099px) {
+  #desktop-nav {
+    display: none !important;
+  }
+
+  #desktop-actions {
+    display: none !important;
+  }
+
+  #mobile-toggle {
+    display: flex !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .nav-mobile-menu {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+}
+
+@media (max-width: 380px) {
+  .nav-logo span {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   EYEBROW
+   ========================================================================== */
+
 .eyebrow {
   display: inline-flex;
   align-items: center;
+
   gap: 8px;
+
   font-family: var(--mono);
   font-size: 12px;
+
   letter-spacing: 0.14em;
   text-transform: uppercase;
+
   color: var(--signal);
 }
 
 .eyebrow::before {
   content: "";
+
   width: 6px;
   height: 6px;
+
+  flex-shrink: 0;
+
   border-radius: 50%;
+
   background: var(--signal);
-  box-shadow: 0 0 0 3px var(--signal-soft);
+
+  box-shadow:
+    0 0 0 3px
+    var(--signal-soft);
 }
+
+/* ==========================================================================
+   SECTIONS
+   ========================================================================== */
 
 .section {
   padding: 108px 0;
-  border-bottom: 1px solid var(--border);
+
+  border-bottom:
+    1px solid
+    var(--border);
+
   position: relative;
 }
 
 @media (max-width: 640px) {
-  .section { padding: 64px 0; }
-  .container { padding: 0 18px; }
+  .section {
+    padding: 64px 0;
+  }
+
+  .container {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
 }
 
 .section-head {
   max-width: 640px;
+
   margin-bottom: 56px;
 }
 
 .section-head h2 {
-  font-size: clamp(26px, 3.4vw, 36px);
+  font-size:
+    clamp(
+      26px,
+      3.4vw,
+      36px
+    );
+
   margin-top: 14px;
 }
 
 .section-head p {
   margin-top: 14px;
+
   font-size: 16px;
 }
 
 .section-index {
   position: absolute;
+
   top: 108px;
   right: 24px;
+
+  display: none;
+
   font-family: var(--mono);
   font-size: 12px;
+
   color: var(--text-faint);
+
   letter-spacing: 0.08em;
-  display: none;
 }
 
 @media (min-width: 900px) {
-  .section-index { display: block; }
+  .section-index {
+    display: block;
+  }
 }
 
-/* ---------- panel / HUD-corner card ---------- */
+/* ==========================================================================
+   PANELS
+   ========================================================================== */
 
 .panel {
-  background: linear-gradient(180deg, var(--panel-2), var(--panel));
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
   position: relative;
-}
 
-.hud-corners::before,
-.hud-corners::after,
-.hud-corners > .hc-br-tl,
-.hud-corners > .hc-br-br {
-  content: "";
+  background:
+    linear-gradient(
+      180deg,
+      var(--panel-2),
+      var(--panel)
+    );
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius: var(--radius-lg);
 }
 
 .hud-corners {
@@ -208,51 +625,99 @@ button {
 }
 
 .hud-corners::before {
+  content: "";
+
   position: absolute;
+
   top: -1px;
   left: -1px;
+
   width: 14px;
   height: 14px;
-  border-top: 2px solid var(--signal);
-  border-left: 2px solid var(--signal);
-  border-top-left-radius: var(--radius-lg);
+
+  border-top:
+    2px solid
+    var(--signal);
+
+  border-left:
+    2px solid
+    var(--signal);
+
+  border-top-left-radius:
+    var(--radius-lg);
+
   opacity: 0.85;
 }
 
 .hud-corners::after {
+  content: "";
+
   position: absolute;
+
   bottom: -1px;
   right: -1px;
+
   width: 14px;
   height: 14px;
-  border-bottom: 2px solid var(--signal);
-  border-right: 2px solid var(--signal);
-  border-bottom-right-radius: var(--radius-lg);
+
+  border-bottom:
+    2px solid
+    var(--signal);
+
+  border-right:
+    2px solid
+    var(--signal);
+
+  border-bottom-right-radius:
+    var(--radius-lg);
+
   opacity: 0.85;
 }
 
-/* ---------- buttons ---------- */
+/* ==========================================================================
+   BUTTONS
+   ========================================================================== */
 
 .btn {
   display: inline-flex;
   align-items: center;
+
   gap: 8px;
+
   padding: 11px 20px;
+
   border-radius: var(--radius);
+
   font-family: var(--mono);
   font-size: 13.5px;
   font-weight: 500;
+
   letter-spacing: 0.01em;
-  border: 1px solid var(--border-bright);
+
+  border:
+    1px solid
+    var(--border-bright);
+
   background: var(--panel);
+
   color: var(--text);
-  transition: border-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease;
+
+  transition:
+    border-color 0.2s ease,
+    transform 0.15s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+
   white-space: nowrap;
 }
 
 .btn:hover {
   border-color: var(--signal);
-  box-shadow: 0 0 0 1px var(--signal-line), 0 0 24px -6px var(--signal-line);
+
+  box-shadow:
+    0 0 0 1px var(--signal-line),
+    0 0 24px -6px var(--signal-line);
+
   transform: translateY(-1px);
 }
 
@@ -262,22 +727,35 @@ button {
 
 .btn-primary {
   background: var(--signal);
+
   color: #04140f;
+
   border-color: var(--signal);
 }
 
 .btn-primary:hover {
-  box-shadow: 0 0 0 1px var(--signal), 0 0 28px -4px var(--signal-line);
+  box-shadow:
+    0 0 0 1px var(--signal),
+    0 0 28px -4px var(--signal-line);
+
   filter: brightness(1.06);
 }
 
-/* ---------- code / terminal block ---------- */
+/* ==========================================================================
+   CODE / TERMINAL
+   ========================================================================== */
 
 .code-block {
   position: relative;
+
   background: #080a0f;
-  border: 1px solid var(--border);
+
+  border:
+    1px solid
+    var(--border);
+
   border-radius: var(--radius-lg);
+
   overflow: hidden;
 }
 
@@ -285,76 +763,115 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   padding: 9px 14px;
-  border-bottom: 1px solid var(--border);
+
+  border-bottom:
+    1px solid
+    var(--border);
+
   background: var(--panel);
 }
 
 .code-block-dots {
   display: flex;
+
   gap: 6px;
 }
 
 .code-block-dots span {
   width: 8px;
   height: 8px;
+
   border-radius: 50%;
+
   background: var(--border-bright);
 }
 
 .code-block-label {
   font-family: var(--mono);
   font-size: 11.5px;
+
   color: var(--text-faint);
+
   letter-spacing: 0.06em;
 }
 
 .code-block pre {
   margin: 0;
+
   padding: 16px 18px;
+
   overflow-x: auto;
+
   font-size: 13.5px;
   line-height: 1.65;
+
   color: var(--signal);
 }
 
-.code-block pre .dim { color: var(--text-faint); }
-.code-block pre .kw { color: var(--violet); }
-.code-block pre .str { color: #f2d06b; }
+.code-block pre .dim {
+  color: var(--text-faint);
+}
+
+.code-block pre .kw {
+  color: var(--violet);
+}
+
+.code-block pre .str {
+  color: #f2d06b;
+}
+
+/* ==========================================================================
+   COPY BUTTON
+   ========================================================================== */
 
 .copy-btn {
   display: inline-flex;
   align-items: center;
+
   gap: 6px;
+
   background: transparent;
-  border: 1px solid var(--border-bright);
+
+  border:
+    1px solid
+    var(--border-bright);
+
   color: var(--text-dim);
+
   font-family: var(--mono);
   font-size: 11px;
+
   padding: 5px 9px;
+
   border-radius: var(--radius);
-  transition: all 0.15s ease;
+
+  transition:
+    all 0.15s ease;
+
+  flex-shrink: 0;
 }
 
 .copy-btn:hover {
   color: var(--signal);
+
   border-color: var(--signal);
 }
 
-/* ---------- tables ---------- */
+/* ==========================================================================
+   TABLES
+   ========================================================================== */
 
 .table-panel {
   overflow-x: auto;
   overflow-y: hidden;
+
   -webkit-overflow-scrolling: touch;
-  min-width: 0; /* let it shrink inside a grid/flex track instead of forcing one wide */
+
+  min-width: 0;
 }
 
-/* Every custom grid on the page: without this, a grid item containing a wide
-   child (a 520px-min table, a long code line) forces its whole track wider
-   than the viewport, and the ENTIRE PAGE scrolls horizontally on mobile —
-   not just that one panel. min-width: 0 lets each item shrink to its track
-   and defer to its own internal overflow-x (e.g. .table-panel, pre) instead. */
 #footer-grid > *,
 #flow-grid > *,
 #lc-grid > *,
@@ -367,50 +884,69 @@ button {
   min-width: 0;
 }
 
-html, body {
-  overflow-x: hidden;
-  max-width: 100vw;
-}
-
 .data-table {
   width: 100%;
-  min-width: 520px; /* scrolls horizontally on phones instead of crushing columns */
+
+  min-width: 520px;
+
   border-collapse: collapse;
+
   font-size: 14.5px;
 }
 
 @media (max-width: 600px) {
-  .data-table { font-size: 13px; }
-  .data-table th, .data-table td { padding: 11px 12px; }
+  .data-table {
+    font-size: 13px;
+  }
+
+  .data-table th,
+  .data-table td {
+    padding: 11px 12px;
+  }
 }
 
 .data-table th {
   text-align: left;
+
   font-family: var(--mono);
   font-size: 11.5px;
+
   letter-spacing: 0.08em;
   text-transform: uppercase;
+
   color: var(--text-faint);
+
   font-weight: 500;
+
   padding: 12px 16px;
-  border-bottom: 1px solid var(--border-bright);
+
+  border-bottom:
+    1px solid
+    var(--border-bright);
 }
 
 .data-table td {
   padding: 14px 16px;
-  border-bottom: 1px solid var(--border);
+
+  border-bottom:
+    1px solid
+    var(--border);
+
   color: var(--text-dim);
+
   vertical-align: top;
 }
 
 .data-table tr td:first-child {
   color: var(--text);
+
   font-family: var(--mono);
   font-size: 13.5px;
 }
 
 .data-table tbody tr {
-  transition: background 0.15s ease;
+  transition:
+    background 0.15s ease;
 }
 
 .data-table tbody tr:hover {
@@ -421,48 +957,91 @@ html, body {
   color: var(--signal);
 }
 
-/* ---------- scrollbar ---------- */
+/* ==========================================================================
+   SCROLLBAR
+   ========================================================================== */
 
-::-webkit-scrollbar { height: 10px; width: 10px; }
-::-webkit-scrollbar-track { background: var(--bg-raised); }
-::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 6px; }
-::-webkit-scrollbar-thumb:hover { background: var(--signal); }
+::-webkit-scrollbar {
+  height: 10px;
+  width: 10px;
+}
 
-/* ---------- misc ---------- */
+::-webkit-scrollbar-track {
+  background: var(--bg-raised);
+}
 
-.mono { font-family: var(--mono); }
-.dim-text { color: var(--text-faint); }
+::-webkit-scrollbar-thumb {
+  background: var(--border-bright);
+
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--signal);
+}
+
+/* ==========================================================================
+   MISC
+   ========================================================================== */
+
+.mono {
+  font-family: var(--mono);
+}
+
+.dim-text {
+  color: var(--text-faint);
+}
 
 .badge-row {
   display: flex;
+
   flex-wrap: wrap;
+
   gap: 8px;
 }
 
 .badge {
-  font-family: var(--mono);
-  font-size: 11.5px;
-  padding: 5px 10px;
-  border: 1px solid var(--border-bright);
-  border-radius: 999px;
-  color: var(--text-dim);
   display: inline-flex;
   align-items: center;
+
   gap: 6px;
+
+  font-family: var(--mono);
+  font-size: 11.5px;
+
+  padding: 5px 10px;
+
+  border:
+    1px solid
+    var(--border-bright);
+
+  border-radius: 999px;
+
+  color: var(--text-dim);
 }
 
 .tag {
   font-family: var(--mono);
   font-size: 12px;
+
   padding: 4px 10px;
+
+  border:
+    1px solid
+    var(--border-bright);
+
   border-radius: 999px;
-  border: 1px solid var(--border-bright);
+
   color: var(--text-dim);
-  transition: all 0.15s ease;
+
+  transition:
+    all 0.15s ease;
 }
 
 .tag:hover {
   color: var(--signal);
+
   border-color: var(--signal);
+
   background: var(--signal-soft);
 }
